@@ -17,9 +17,9 @@ var EventSchema = new Schema({
     required: 'Event needs a description'
   },
   end_time: {
-    type: Date,
+    type: String,
     required: 'Need end time'
-  } ,
+  },
   location: {
     type: String,
     trim: true,
@@ -35,7 +35,7 @@ var EventSchema = new Schema({
     ref: 'User'
   },
   start_time: {
-    type: Date,
+    type: String,
     required: 'Need a start time'
   },
   ticket_uri: {

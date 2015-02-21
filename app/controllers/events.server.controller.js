@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var event = new Event(req.body);
-	event.user = req.user;
+	event.owner = req.user;
 
 	event.save(function(err) {
 		if (err) {
@@ -88,14 +88,13 @@ exports.list = function(req, res) {
  * Event middleware
  */
 exports.eventByID = function(req, res, next, id) {
-
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
 			message: 'Event is invalid'
 		});
 	}
 
-	Event.findById(id).populate('user', 'displayName').exec(function(err, event) {
+	Event.findById(id).populate('owner', 'displayName').exec(function(err, event) {
 		if (err) return next(err);
 		if (!event) {
 			return res.status(404).send({
